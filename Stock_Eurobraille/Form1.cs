@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using Stock_Eurobraille.Classes;
 
 namespace Stock_Eurobraille
 {
@@ -21,6 +22,10 @@ namespace Stock_Eurobraille
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+            Program.dbconnection2.executeQuery("SELECT password from eurobraille.users WHERE email = 'test@gmail.com' ");
+
+            /*
             // check if any of textbox or empty or not
             if (string.IsNullOrEmpty(textBoxEmail.Text) || string.IsNullOrEmpty(textBoxPassword.Text))
             {
@@ -28,25 +33,17 @@ namespace Stock_Eurobraille
             }
             else
             {
-                // Connect to DB
-                string connectionString = "Server=localhost;Database=EuroBraille;User=root;Password=root;";
-                MySqlConnection connection = new MySqlConnection(connectionString);
                 try
                 {
-                    connection.Open();
-
-                    // Execute a query with parameterized query
-                    string query = "SELECT password FROM eurobraille.users WHERE email = @email";
-                    MySqlCommand command = new MySqlCommand(query, connection);
+                    MySqlCommand command = new MySqlCommand(Program.dbconnection2.executeQuery("SELECT password WHERE email = @email").ToString(), Program.dbconnection2.GetMySqlConnection());
                     command.Parameters.AddWithValue("@email", textBoxEmail.Text);
                     MySqlDataReader reader = command.ExecuteReader();
 
-                    // Check if there are rows returned
                     if (reader.HasRows)
                     {
-                        reader.Read(); // Read the first row
-                        string passwordFromDB = reader.GetString("password");
-                        // Check if password matches
+                        reader.Read();
+                        string passwordFromDB = reader.GetString("Password");
+
                         if (passwordFromDB.Equals(textBoxPassword.Text))
                         {
                             MessageBox.Show("Connexion Approved", "Connected", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -64,29 +61,24 @@ namespace Stock_Eurobraille
                         MessageBox.Show("Aucun compte ne correspond !", "Échec", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
-                    // Close the reader
+                    //Close the reader
                     reader.Close();
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erreur lors de la connexion à la base de données : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                finally
-                {
-                    // Close the connection
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
-                }
             }
-
-
-
-
+            */
         }
-        }
+
+
     }
+}
+
+
+
 
 
 
