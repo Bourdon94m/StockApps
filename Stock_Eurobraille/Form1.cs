@@ -21,8 +21,8 @@ namespace Stock_Eurobraille
 
         private void button1_Click(object sender, EventArgs e)
         {
-
             Program.dbconnection2.isValidAccount(textBoxEmail.Text.ToString(), textBoxPassword.Text);
+           
         }
 
 

@@ -86,8 +86,8 @@ namespace Stock_Eurobraille.Classes
                 {
                     Console.WriteLine(password);
 
-                    MessageBox.Show("Connected", "Valid", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Form2 stock = new Form2();
+                    MessageBox.Show("Yo " + passwordFromDB, "Valid", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Home stock = new Home();
                     Form login = new Form();
 
                     stock.Show();

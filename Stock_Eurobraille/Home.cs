@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Stock_Eurobraille
 {
-    public partial class Form2 : Form
+    public partial class Home : Form
     {
-        public Form2()
+        public Home()
         {
             InitializeComponent();
         }
@@ -25,9 +25,21 @@ namespace Stock_Eurobraille
         private void button2_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Succesfully Logout", "Logout", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Form form = new Form();
-            form.Show();
-            this.Hide();
+            
+        }
+
+        private void siticoneButton2_Click(object sender, EventArgs e)
+        {
+            NewCommand commandPage = new NewCommand();
+            commandPage.Show();
+            this.Visible = false;
+        }
+
+        private void siticoneButton3_Click(object sender, EventArgs e)
+        {
+            AllProduct allProductPage = new AllProduct();
+            allProductPage.Show();
+            this.Visible = false;
         }
     }
     
