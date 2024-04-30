@@ -1,9 +1,11 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+
 
 
 namespace Stock_Eurobraille.Classes
@@ -43,21 +45,70 @@ namespace Stock_Eurobraille.Classes
                 MySqlConnection conn = new MySqlConnection(connectionString);
                 conn.Open();
                 this.conn = conn;
-            } catch (Exception ex)
+            } 
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
         }
 
         public void Close()
-        { this.conn.Close(); }
+        { conn?.Close(); } // Utilisez ? pour éviter les erreurs si conn est null 
 
+
+
+        // Execute une query que l'on passe en parametre
         public MySqlDataReader executeQuery(string query)
         {
             MySqlCommand command = new MySqlCommand(query, GetMySqlConnection());
             command.ExecuteScalar();
             MySqlDataReader r = command.ExecuteReader();
             return r;
+        }
+
+        // check si le compte correspond au mot de passe
+        public void isValidAccount(string email, string password)
+        {
+            GetMySqlConnection();
+            string query = "SELECT password FROM eurobraille_ceciaa.users WHERE email = @email";
+            MySqlCommand command = new MySqlCommand(query, GetMySqlConnection());
+            command.Parameters.AddWithValue("@email", email);
+
+            MySqlDataReader reader = command.ExecuteReader();
+
+
+
+            if (reader.Read())
+            {
+                string passwordFromDB = reader["password"].ToString();
+
+                if (password.Equals(passwordFromDB))
+                {
+                    Console.WriteLine(password);
+
+                    MessageBox.Show("Connected", "Valid", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Form2 stock = new Form2();
+                    Form login = new Form();
+
+                    stock.Show();
+                    login.Visible = false;
+                    reader.Close();
+                    
+                }
+                else
+                {
+                    MessageBox.Show("Wrong ID", "Wrong ID", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    reader.Close();
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Not a valid account", "Wrong ID", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                reader.Close();
+            }
+           
+            
         }
     }
 }
