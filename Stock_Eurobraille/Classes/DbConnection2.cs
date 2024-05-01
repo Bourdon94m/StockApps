@@ -70,7 +70,7 @@ namespace Stock_Eurobraille.Classes
         public void isValidAccount(string email, string password)
         {
             GetMySqlConnection();
-            string query = "SELECT password FROM eurobraille_ceciaa.users WHERE email = @email";
+            string query = "SELECT password FROM eurobraille.users WHERE email = @email";
             MySqlCommand command = new MySqlCommand(query, GetMySqlConnection());
             command.Parameters.AddWithValue("@email", email);
 
@@ -81,12 +81,12 @@ namespace Stock_Eurobraille.Classes
             if (reader.Read())
             {
                 string passwordFromDB = reader["password"].ToString();
-
+            
                 if (password.Equals(passwordFromDB))
                 {
                     Console.WriteLine(password);
 
-                    MessageBox.Show("Yo " + passwordFromDB, "Valid", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Salut ! ", "Valid", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Home stock = new Home();
                     Form login = new Form();
 
@@ -107,8 +107,8 @@ namespace Stock_Eurobraille.Classes
                 MessageBox.Show("Not a valid account", "Wrong ID", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 reader.Close();
             }
-           
-            
+             
         }
+
     }
 }

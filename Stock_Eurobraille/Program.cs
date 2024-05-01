@@ -18,7 +18,7 @@ namespace Stock_Eurobraille
         [STAThread]
         static void Main()
         {
-            dbconnection2 = new DbConnection2("127.0.0.1", "eurobraille_ceciaa", "root", "root");
+            dbconnection2 = new DbConnection2("127.0.0.1", "eurobraille", "root", "root");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Login());
