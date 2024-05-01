@@ -60,7 +60,8 @@ namespace Stock_Eurobraille
             else
             {
                 command.ExecuteNonQuery(); // Execute Query 
-                dataGridView1.Rows.Add(textBoxProductName.Text, listboxModele.Text, listboxGamme.Text, NumericUpDownPrice.Value.ToString() + "$"); // Add it into a visual format
+                MessageBox.Show("Successfully added it into DB", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dataGridView.Rows.Add(textBoxProductName.Text, listboxModele.Text, listboxGamme.Text, NumericUpDownPrice.Value.ToString() + "$"); // Add it into a visual format
                 clearData(); // Ckear Data from actual data entered
             }
             

@@ -107,7 +107,7 @@
     <Compile Include="AllProduct.Designer.cs">
       <DependentUpon>AllProduct.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\DbConnection2.cs" />
+    <Compile Include="Classes\DbConnection.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

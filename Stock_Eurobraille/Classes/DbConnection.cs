@@ -10,7 +10,7 @@ using MySql.Data.MySqlClient;
 
 namespace Stock_Eurobraille.Classes
 {
-    internal class DbConnection2
+    internal class DbConnection
     {
 
 
@@ -20,7 +20,7 @@ namespace Stock_Eurobraille.Classes
         string password;
         MySqlConnection conn;
 
-        public DbConnection2(string server, string database, string user, string password)
+        public DbConnection(string server, string database, string user, string password)
         {
             this.server = server;
             this.database = database;
@@ -37,7 +37,7 @@ namespace Stock_Eurobraille.Classes
 
         public void Connect()
         {
-            string connectionString = "server="+this.server+";database=" + this.database + ";user=" + this.user + ";password=" + this.password+";";
+            string connectionString = "server=" + this.server + ";database=" + this.database + ";user=" + this.user + ";password=" + this.password + ";";
             Console.WriteLine(connectionString);
             try
             {
@@ -45,11 +45,13 @@ namespace Stock_Eurobraille.Classes
                 MySqlConnection conn = new MySqlConnection(connectionString);
                 conn.Open();
                 this.conn = conn;
-            } 
+            }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+            
+
         }
 
         public void Close()
@@ -108,6 +110,22 @@ namespace Stock_Eurobraille.Classes
                 reader.Close();
             }
              
+        }
+
+        public bool isOpen()
+        {
+            MySqlConnection connection = Program.dbconnection2.GetMySqlConnection();
+
+            if (connection.State == System.Data.ConnectionState.Open) return true;
+            else { return false; }
+        }
+
+        public bool isClosed()
+        {
+            MySqlConnection connection = Program.dbconnection2.GetMySqlConnection();
+
+            if (connection.State == System.Data.ConnectionState.Closed) return true;
+            else { return false; }
         }
 
     }
